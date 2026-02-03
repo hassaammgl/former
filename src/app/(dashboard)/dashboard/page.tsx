@@ -17,13 +17,11 @@ import type { LucideIcon } from 'lucide-react';
 export default function DashboardPage() {
     return (
         <div className="space-y-8 animate-in fade-in slide-in-from-bottom-2 duration-500 ">
-
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
                 <MetricCard label="Total Forms" value="12" icon={FileText} trend="+2 this month" />
                 <MetricCard label="Total Submissions" value="1,284" icon={Users} trend="+12% from last week" />
                 <MetricCard label="Avg. Conversion Rate" value="64.2%" icon={TrendingUp} trend="+3.1%" />
             </div>
-
             <div className="space-y-4">
                 <div className="flex items-center justify-between">
                     <h2 className="text-xl font-bold">Recent Forms</h2>

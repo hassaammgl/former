@@ -1,42 +1,87 @@
+import type { LucideIcon } from "lucide-react"
+
 export { }
 
 declare global {
+
+
     type FieldType =
-        | 'text'
-        | 'email'
-        | 'password'
-        | 'number'
-        | 'textarea'
-        | 'select'
-        | 'radio'
-        | 'checkbox'
-        | 'switch'
-        | 'date'
-        | 'file'
-        | 'hidden'
-        | 'divider'
-        | 'heading'
-        | 'paragraph'
-        | 'button';
+        "text" | "textarea" | "number" | "email" | "password" | "select" | "checkbox" | "radio" | "date"
 
-
-    interface ConditionalLogic {
-        fieldId: string;
-        operator: 'equals' | 'not_equals' | 'contains' | 'not_contains';
-        value: string;
-        action: 'show' | 'hide';
+    interface FieldOption {
+        id: string
+        label: string
+        value: string
     }
 
-    interface SelectOption {
-        label: string;
-        value: string;
+    interface Field {
+        id: string
+        type: FieldType
+        label: string
+        placeholder?: string
+        required: boolean
+        options?: FieldOption[]
     }
 
-    interface ValidationRule {
-        type: 'min' | 'max' | 'regex' | 'email' | 'required';
-        value?: string | number;
-        message?: string;
+    interface FormMeta {
+        id: string
+        title: string
+        description?: string
     }
+
+    interface FormBuilderState {
+        meta: FormMeta
+        fields: Field[]
+
+        // // UI state
+        selectedFieldId: string | null
+        isDirty: boolean
+
+        // // History for undo/redo
+        // history: Field[][]
+        // historyIndex: number
+
+        // // Actions
+        addField: (type: FieldType) => void
+        // updateField: (id: string, data: Partial<Field>) => void
+        // deleteField: (id: string) => void
+        // reorderFields: (from: number, to: number) => void
+        // selectField: (id: string | null) => void
+
+        // addOption: (fieldId: string) => void
+        // updateOption: (fieldId: string, optionId: string, data: Partial<FieldOption>) => void
+        // deleteOption: (fieldId: string, optionId: string) => void
+
+        // undo: () => void
+        // redo: () => void
+
+        // resetForm: () => void
+        setMeta: (meta: Partial<FormMeta>) => void
+    }
+
+
+
+
+    type FieldCategory =
+        | "basic"
+        | "numbers"
+        | "contact"
+        | "datetime"
+        | "choices"
+        | "files"
+        | "special"
+        | "layout"
+
+    type FieldSchema = {
+        _id: string
+        type: string
+        label: string
+        description: string
+        icon: LucideIcon,
+        category: FieldCategory
+        defaultProps: Record<string, unknown>
+    }
+
 
     interface FormField {
         id: string;

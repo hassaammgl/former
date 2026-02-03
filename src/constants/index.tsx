@@ -1,45 +1,345 @@
 import {
-    LayoutDashboard,
-    FileText,
-    Database,
-    Zap,
-    Settings,
-} from 'lucide-react';
-
-
+  LayoutDashboard,
+  FileText,
+  Database,
+  Zap,
+  Settings,
+  Type,
+  Hash,
+  DollarSign,
+  Sliders,
+  Mail,
+  Phone,
+  Link,
+  Calendar,
+  Clock,
+  CalendarClock,
+  List,
+  ListChecks,
+  CheckSquare,
+  Radio,
+  ToggleLeft,
+  Upload,
+  Image,
+  EyeOff,
+  PenTool,
+  MapPin,
+  Star,
+  ShieldCheck,
+  Heading,
+  AlignLeft,
+  Minus,
+  MoveVertical,
+  LucideTextWrap,
+} from "lucide-react";
 
 export const links = [
-    {
-        label: "Dashboard",
-        href: "/dashboard",
-        icon: <LayoutDashboard className="h-5 w-5 shrink-0 text-neutral-700 dark:text-neutral-200" />,
-    },
-    {
-        label: "Forms",
-        href: "/forms",
-        icon: (
-            <FileText className="h-5 w-5 shrink-0 text-neutral-700 dark:text-neutral-200" />
-        ),
-    },
-    {
-        label: "Submissions",
-        href: "/submissions",
-        icon: (
-            <Database className="h-5 w-5 shrink-0 text-neutral-700 dark:text-neutral-200" />
-        ),
-    },
-    {
-        label: "Integrations",
-        href: "/integrations",
-        icon: (
-            <Zap className="h-5 w-5 shrink-0 text-neutral-700 dark:text-neutral-200" />
-        ),
-    },
-    {
-        label: "Settings",
-        href: "/settings",
-        icon: (
-            <Settings className="h-5 w-5 shrink-0 text-neutral-700 dark:text-neutral-200" />
-        ),
-    },
+  {
+    label: "Dashboard",
+    href: "/dashboard",
+    icon: (
+      <LayoutDashboard className="h-5 w-5 shrink-0 text-neutral-700 dark:text-neutral-200" />
+    ),
+  },
+  {
+    label: "Forms",
+    href: "/forms",
+    icon: (
+      <FileText className="h-5 w-5 shrink-0 text-neutral-700 dark:text-neutral-200" />
+    ),
+  },
+  {
+    label: "Submissions",
+    href: "/submissions",
+    icon: (
+      <Database className="h-5 w-5 shrink-0 text-neutral-700 dark:text-neutral-200" />
+    ),
+  },
+  {
+    label: "Integrations",
+    href: "/integrations",
+    icon: (
+      <Zap className="h-5 w-5 shrink-0 text-neutral-700 dark:text-neutral-200" />
+    ),
+  },
+  {
+    label: "Settings",
+    href: "/settings",
+    icon: (
+      <Settings className="h-5 w-5 shrink-0 text-neutral-700 dark:text-neutral-200" />
+    ),
+  },
+];
+
+export const FIELD_TYPES = [
+  "basic",
+  "numbers",
+  "contact",
+  "datetime",
+  "choices",
+  "files",
+  "special",
+  "layout",
+];
+
+export const FIELD_SCHEMA: FieldSchema[] = [
+  {
+    _id: crypto.randomUUID(),
+    type: "text",
+    label: "Text",
+    category: "basic",
+    icon: Type,
+    description: "Single-line text input",
+    defaultProps: { placeholder: "Enter text", required: false },
+  },
+  {
+    _id: crypto.randomUUID(),
+    type: "textarea",
+    label: "Textarea",
+    category: "basic",
+    icon: LucideTextWrap,
+    description: "Multi-line text input",
+    defaultProps: { rows: 4, placeholder: "Enter long text" },
+  },
+  {
+    _id: crypto.randomUUID(),
+    type: "rich-text",
+    label: "Rich Text",
+    category: "basic",
+    icon: FileText,
+    description: "Formatted text editor with styling options",
+    defaultProps: {},
+  },
+
+  {
+    _id: crypto.randomUUID(),
+    type: "number",
+    label: "Number",
+    category: "numbers",
+    icon: Hash,
+    description: "Numeric input with min and max limits",
+    defaultProps: { min: 0, max: 100 },
+  },
+  {
+    _id: crypto.randomUUID(),
+    type: "currency",
+    label: "Currency",
+    category: "numbers",
+    icon: DollarSign,
+    description: "Currency formatted numeric input",
+    defaultProps: { currency: "USD" },
+  },
+  {
+    _id: crypto.randomUUID(),
+    type: "range",
+    label: "Slider",
+    category: "numbers",
+    icon: Sliders,
+    description: "Range slider input",
+    defaultProps: { min: 0, max: 100 },
+  },
+
+  {
+    _id: crypto.randomUUID(),
+    type: "email",
+    label: "Email",
+    category: "contact",
+    icon: Mail,
+    description: "Email address input with validation",
+    defaultProps: { placeholder: "user@example.com" },
+  },
+  {
+    _id: crypto.randomUUID(),
+    type: "tel",
+    label: "Phone",
+    category: "contact",
+    icon: Phone,
+    description: "Phone number input",
+    defaultProps: { placeholder: "+123456789" },
+  },
+  {
+    _id: crypto.randomUUID(),
+    type: "url",
+    label: "URL",
+    category: "contact",
+    icon: Link,
+    description: "Website URL input",
+    defaultProps: { placeholder: "https://example.com" },
+  },
+
+  {
+    _id: crypto.randomUUID(),
+    type: "date",
+    label: "Date",
+    category: "datetime",
+    icon: Calendar,
+    description: "Date picker input",
+    defaultProps: {},
+  },
+  {
+    _id: crypto.randomUUID(),
+    type: "time",
+    label: "Time",
+    category: "datetime",
+    icon: Clock,
+    description: "Time picker input",
+    defaultProps: {},
+  },
+  {
+    _id: crypto.randomUUID(),
+    type: "datetime-local",
+    label: "Date Time",
+    category: "datetime",
+    icon: CalendarClock,
+    description: "Date and time picker input",
+    defaultProps: {},
+  },
+
+  {
+    _id: crypto.randomUUID(),
+    type: "select",
+    label: "Select",
+    category: "choices",
+    icon: List,
+    description: "Dropdown select with single option",
+    defaultProps: { options: [] },
+  },
+  {
+    _id: crypto.randomUUID(),
+    type: "multiselect",
+    label: "Multi Select",
+    category: "choices",
+    icon: ListChecks,
+    description: "Dropdown with multiple selectable options",
+    defaultProps: { options: [] },
+  },
+  {
+    _id: crypto.randomUUID(),
+    type: "checkbox",
+    label: "Checkbox",
+    category: "choices",
+    icon: CheckSquare,
+    description: "Single checkbox input",
+    defaultProps: { checked: false },
+  },
+  {
+    _id: crypto.randomUUID(),
+    type: "radio",
+    label: "Radio",
+    category: "choices",
+    icon: Radio,
+    description: "Radio group for single selection",
+    defaultProps: { options: [] },
+  },
+  {
+    _id: crypto.randomUUID(),
+    type: "switch",
+    label: "Toggle",
+    category: "choices",
+    icon: ToggleLeft,
+    description: "Toggle switch input",
+    defaultProps: { checked: false },
+  },
+
+  {
+    _id: crypto.randomUUID(),
+    type: "file",
+    label: "File Upload",
+    category: "files",
+    icon: Upload,
+    description: "File upload input with size and type limits",
+    defaultProps: { accept: "*", maxSizeMB: 5 },
+  },
+  {
+    _id: crypto.randomUUID(),
+    type: "image-upload",
+    label: "Image Upload",
+    category: "files",
+    icon: Image,
+    description: "Image file upload input",
+    defaultProps: { accept: "image/*" },
+  },
+
+  {
+    _id: crypto.randomUUID(),
+    type: "hidden",
+    label: "Hidden",
+    category: "special",
+    icon: EyeOff,
+    description: "Hidden field for metadata or tokens",
+    defaultProps: {},
+  },
+  {
+    _id: crypto.randomUUID(),
+    type: "signature-pad",
+    label: "Signature",
+    category: "special",
+    icon: PenTool,
+    description: "Canvas-based signature capture",
+    defaultProps: {},
+  },
+  {
+    _id: crypto.randomUUID(),
+    type: "geo-location",
+    label: "Location",
+    category: "special",
+    icon: MapPin,
+    description: "User geolocation capture field",
+    defaultProps: {},
+  },
+  {
+    _id: crypto.randomUUID(),
+    type: "rating-stars",
+    label: "Rating",
+    category: "special",
+    icon: Star,
+    description: "Star rating input",
+    defaultProps: { max: 5 },
+  },
+  {
+    _id: crypto.randomUUID(),
+    type: "captcha",
+    label: "Captcha",
+    category: "special",
+    icon: ShieldCheck,
+    description: "Bot protection captcha field",
+    defaultProps: {},
+  },
+
+  {
+    _id: crypto.randomUUID(),
+    type: "heading",
+    label: "Heading",
+    category: "layout",
+    icon: Heading,
+    description: "Static heading text block",
+    defaultProps: { level: 2, text: "Heading" },
+  },
+  {
+    _id: crypto.randomUUID(),
+    type: "paragraph",
+    label: "Paragraph",
+    category: "layout",
+    icon: AlignLeft,
+    description: "Static paragraph text block",
+    defaultProps: { text: "Paragraph text" },
+  },
+  {
+    _id: crypto.randomUUID(),
+    type: "divider",
+    label: "Divider",
+    category: "layout",
+    icon: Minus,
+    description: "Horizontal divider line",
+    defaultProps: {},
+  },
+  {
+    _id: crypto.randomUUID(),
+    type: "spacer",
+    label: "Spacer",
+    category: "layout",
+    icon: MoveVertical,
+    description: "Vertical spacing block",
+    defaultProps: { height: 20 },
+  },
 ];
