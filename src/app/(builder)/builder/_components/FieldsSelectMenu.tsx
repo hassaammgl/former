@@ -70,7 +70,6 @@ const Group = ({ fieldsType }: GroupsI) => {
                   className="px-2 py-4 border hover:font-bold transition-transform duration-200"
                 >
                   <f.icon className="text-black dark:text-primary" /> {f.label}{" "}
-                  {f.type}
                   <PlusCircle className="ml-auto" />
                 </SidebarMenuButton>
               </TooltipTrigger>

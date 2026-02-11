@@ -1,11 +1,10 @@
 import React, { memo } from "react";
 import { Sheet, SheetTrigger } from "@/components/ui/sheet";
 import { MoreVertical } from "lucide-react";
-import { Label } from "../ui/label";
 import { useBuilderStore } from "@/store/builderStore";
 import { cn } from "@/lib/utils";
 
-const InputsWrapper = memo(function InputsWrapper({
+const LayoutFieldWrapper = memo(function LayoutFieldWrapper({
   children,
   data,
   configs,
@@ -26,16 +25,9 @@ const InputsWrapper = memo(function InputsWrapper({
             : "",
         )}
       >
-        <Label className="mb-2 text-md">
-          {data.label}
-          {data.required && (
-            <span className="text-red-500 font-extrabold">*</span>
-          )}
-          {/* To be fixed later */}
-          <SheetTrigger>
-            <MoreVertical className="size-4" />
-          </SheetTrigger>
-        </Label>
+        <SheetTrigger>
+          <MoreVertical className="size-4" />
+        </SheetTrigger>
         {children}
         {configs}
       </div>
@@ -43,4 +35,4 @@ const InputsWrapper = memo(function InputsWrapper({
   );
 });
 
-export default InputsWrapper;
+export default LayoutFieldWrapper;

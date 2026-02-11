@@ -5,6 +5,7 @@ import {
   SheetFooter,
   SheetHeader,
   SheetTitle,
+  SheetClose,
 } from "@/components/ui/sheet";
 import { Label } from "../../ui/label";
 import { Input } from "../../ui/input";
@@ -14,18 +15,17 @@ import { Button } from "../../ui/button";
 import { useBuilderStore } from "@/store/builderStore";
 import { useState } from "react";
 
-const TextFieldConfigs = ({ data }: { data: Field }) => {
+const DatePickerFieldConfigs = ({ data }: { data: Field }) => {
   const [label, setLabel] = useState(data.label ?? "");
   const [helperText, setHelperText] = useState(data.helperText ?? "");
   const [placeholderText, setPlaceholderText] = useState(
     data.placeholder ?? "",
   );
-  const [required, setRequired] = useState(data.required);
-  const fieldName = `${data.type.substring(0, 1).toUpperCase()}${data.type.slice(1)}`;
-
+  const [required, setRequired] = useState(data.required ?? false);
   const [config, setConfig] = useState<FieldConfigs[]>(data.config ?? []);
+  const { updateField, deleteField } = useBuilderStore();
 
-  const { updateField } = useBuilderStore();
+  const fieldName = `${data.type.substring(0, 1).toUpperCase()}${data.type.slice(1)}`;
 
   const handleSave = () => {
     updateField(data.id, {
@@ -87,17 +87,24 @@ const TextFieldConfigs = ({ data }: { data: Field }) => {
           </div>
         ))}
       </div>
-      <Button
-        className="mx-4 text-red-400 hover:text-red-600"
-        variant={"outline"}
-      >
-        Delete
-      </Button>
-      <SheetFooter>
-        <Button onClick={handleSave}>Save</Button>
+      <SheetFooter className="flex">
+        <SheetClose asChild>
+          <Button
+            className="text-red-400 hover:text-red-600 w-full"
+            onClick={() => deleteField(data.id)}
+            variant={"outline"}
+          >
+            Delete
+          </Button>
+        </SheetClose>
+        <SheetClose asChild>
+          <Button className="w-full" onClick={handleSave}>
+            Save
+          </Button>
+        </SheetClose>
       </SheetFooter>
     </SheetContent>
   );
 };
 
-export default TextFieldConfigs;
+export default DatePickerFieldConfigs;

@@ -196,3 +196,16 @@
 .br-test {
   @apply border-red-500 border-2;
 }
+
+.ql-toolbar {
+  background: transparent;
+}
+
+.ql-container {
+  background: transparent;
+  color: inherit;
+}
+
+.dark .ql-editor {
+  color: white;
+}
