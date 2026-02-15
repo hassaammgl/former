@@ -24,7 +24,7 @@ const FormPreview = memo(function FormPreview({ fields }: { fields: Field[] }) {
   return (
     <>
       {fields.map((f) => (
-        <FieldFactory key={f.id} field={f} />
+        <FieldFactory key={f.id} field={f}  />
       ))}
     </>
   );

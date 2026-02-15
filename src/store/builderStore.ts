@@ -2,6 +2,7 @@ import { create } from "zustand";
 import { immer } from "zustand/middleware/immer";
 import { nanoid } from "nanoid";
 import { handleFields } from "@/lib/handleFields";
+import { getFieldCategory } from "@/lib/get-field-category";
 
 const initialMeta: FormMeta = {
   id: nanoid(),
@@ -21,18 +22,40 @@ export const useBuilderStore = create<FormBuilderState>()(
 
     addField: (type) => {
       const ftype = `${type.substring(0, 1).toUpperCase()}${type.substring(1)}`;
+
       set((state) => {
-        const field: Field = {
-          id: nanoid(),
-          type,
-          label: `New ${ftype} Field`,
-          required: false,
-          helperText: "",
-          options: type === "select" || type === "radio" ? [] : undefined,
-          config: handleFields(type),
-        };
-        state.fields.push(field);
-        state.isDirty = true;
+        if (getFieldCategory(type) === null) {
+          const field: Field = {
+            id: nanoid(),
+            type,
+            label: `New ${ftype} Field`,
+            required: false,
+            helperText: "",
+            config: handleFields(type),
+          };
+          state.fields.push(field);
+          state.isDirty = true;
+        } else if (getFieldCategory(type) === "layout") {
+          const field: Field = {
+            id: nanoid(),
+            type,
+            innerText: `This is ${ftype}`,
+          };
+          state.fields.push(field);
+          state.isDirty = true;
+        } else {
+          const field: Field = {
+            id: nanoid(),
+            type,
+            label: `New ${ftype} Field`,
+            required: false,
+            helperText: "",
+            options: [],
+            config: handleFields(type),
+          };
+          state.fields.push(field);
+          state.isDirty = true;
+        }
       });
     },
 
@@ -67,19 +90,23 @@ export const useBuilderStore = create<FormBuilderState>()(
       });
     },
 
-    // addOption: (fieldId) => {
-    //     set((state) => {
-    //         const field = state.fields.find((f) => f.id === fieldId)
-    //         if (!field || !field.options) return
-    //         field.options.push({
-    //             id: nanoid(),
-    //             label: "Option",
-    //             value: "option",
-    //         })
-    //         state.isDirty = true
-    //     })
-    //         ; (get() as any)._pushHistory()
-    // },
+    addOption: (fieldId) => {
+      set((state) => {
+        const field = state.fields.find((f) => f.id === fieldId);
+        if (!field) return;
+        if (!field.options) field.options = [];
+
+        const count = field.options.length + 1;
+
+        field.options.push({
+          id: nanoid(),
+          label: `Option ${count}`,
+          value: `option-${count}`,
+        });
+
+        state.isDirty = true;
+      });
+    },
 
     updateOption: (fieldId, optionId, data) => {
       set((state) => {
@@ -92,15 +119,17 @@ export const useBuilderStore = create<FormBuilderState>()(
       // ; (get() as any)._pushHistory()
     },
 
-    // deleteOption: (fieldId, optionId) => {
-    //     set((state) => {
-    //         const field = state.fields.find((f) => f.id === fieldId)
-    //         if (!field?.options) return
-    //         field.options = field.options.filter((o) => o.id !== optionId)
-    //         state.isDirty = true
-    //     })
-    //         ; (get() as any)._pushHistory()
-    // },
+    deleteOption: (fieldId, optionId) => {
+      set((state) => {
+        const field = state.fields.find((f) => f.id === fieldId);
+        if (!field?.options) return;
+        if (field.options.length <= 1) return;
+
+        field.options = field.options.filter((opt) => opt.id !== optionId);
+
+        state.isDirty = true;
+      });
+    },
 
     // undo: () => {
     //     const { historyIndex, history } = get()

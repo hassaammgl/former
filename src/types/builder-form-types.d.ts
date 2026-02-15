@@ -1,6 +1,6 @@
 import type { LucideIcon } from "lucide-react";
 
-export {};
+export { };
 
 declare global {
   type FieldType =
@@ -14,10 +14,16 @@ declare global {
     | "url"
     | "email"
     | "select"
+    | "multiselect"
     | "checkbox"
     | "radio"
     | "time"
     | "date"
+    | "heading"
+    | "paragraph"
+    | "switch"
+    | "divider"
+    | "spacer"
     | "datetime-local";
 
   interface FieldOption {
@@ -32,10 +38,11 @@ declare global {
   interface Field {
     id: string;
     type: FieldType;
-    label: string;
+    label?: string;
     placeholder?: string;
     helperText?: string;
-    required: boolean;
+    required?: boolean;
+    innerText?: string;
     options?: FieldOption[];
     config?: FieldConfigs[];
   }
@@ -57,22 +64,22 @@ declare global {
 
     // // History for undo/redo
     // history: Field[][]
-    // historyIndex: number
+    // historyIndex: number 
 
     // // Actions
-    addField: (type: FieldType) => void;
+    addField: (type: FieldType, category?: FieldCategory) => void;
     updateField: (id: string, data: Partial<Field>) => void;
     deleteField: (id: string) => void;
     // reorderFields: (from: number, to: number) => void
     selectField: (id: string | null) => void;
 
-    // addOption: (fieldId: string) => void
+    addOption: (fieldId: string) => void;
     updateOption: (
       fieldId: string,
       optionId: string,
       data: Partial<FieldOption>,
     ) => void;
-    // deleteOption: (fieldId: string, optionId: string) => void
+    deleteOption: (fieldId: string, optionId: string) => void
 
     // undo: () => void
     // redo: () => void
