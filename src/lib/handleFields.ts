@@ -10,6 +10,10 @@ const fieldConfigsData: Partial<Record<FieldType, FieldConfigs[]>> = {
   email: [],
   "rich-text": [],
   textarea: [{ label: "rows", value: 4 }],
+  file: [
+    { label: "maxSize", value: 5 },
+    { label: "accept", value: "*" },
+  ],
 };
 
 export function handleFields(type: FieldType) {

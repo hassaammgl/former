@@ -1,12 +1,13 @@
 import ChoicesFields from "@/components/form/fields/ChoicesFields";
 import DatePickerField from "@/components/form/fields/DatePickerField";
 import DateTimePickerField from "@/components/form/fields/DateTimePickerField";
+import FileUploadField from "@/components/form/fields/FileUploadField";
 import LayoutField from "@/components/form/fields/LayoutField";
 import NormalField from "@/components/form/fields/NormalInputField";
 import RichTextField from "@/components/form/fields/RichTextField";
 import TextAreaField from "@/components/form/fields/TextAreaField";
 import { memo, ComponentType } from "react";
- 
+
 const FIELD_COMPONENTS: Partial<
   Record<FieldType, ComponentType<{ data: Field }>>
 > = {
@@ -30,6 +31,7 @@ const FIELD_COMPONENTS: Partial<
   radio: ChoicesFields,
   select: ChoicesFields,
   multiselect: ChoicesFields,
+  file: FileUploadField,
 };
 
 const FieldFactory = memo(function FieldFactory({ field }: { field: Field }) {

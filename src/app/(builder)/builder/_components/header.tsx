@@ -28,7 +28,9 @@ import { useBuilderStore } from "@/store/builderStore";
 const status = "published";
 
 const Header = () => {
-  const { meta, setMeta } = useBuilderStore();
+  const { meta, setMeta, isDirty, history, undo, redo, historyIndex } =
+    useBuilderStore();
+  console.log(history);
   return (
     <header className="flex h-14 items-center justify-between border-b border-border px-4 bg-background shrink-0 ">
       <div className="flex items-center gap-4">
@@ -57,10 +59,20 @@ const Header = () => {
       <div className="flex items-center gap-2">
         {/* Undo/Redo */}
         <div className="flex items-center border-r border-border pr-2 mr-2">
-          <Button variant="ghost" size="icon-sm" disabled>
+          <Button
+            variant="ghost"
+            size="icon-sm"
+            onClick={() => undo()}
+            disabled={history.length === 0}
+          >
             <Undo className="h-4 w-4" />
           </Button>
-          <Button variant="ghost" size="icon-sm" disabled>
+          <Button
+            variant="ghost"
+            size="icon-sm"
+            onClick={() => redo()}
+            disabled={historyIndex + 1 === history.length}
+          >
             <Redo className="h-4 w-4" />
           </Button>
         </div>
@@ -76,6 +88,7 @@ const Header = () => {
           variant="outline"
           size="sm"
           //  onClick={handleSave} disabled={isSaving}
+          disabled={!isDirty}
         >
           <Save className="h-4 w-4 mr-2" />
           {/* {isSaving ? 'Saving...' : 'Save'} */}

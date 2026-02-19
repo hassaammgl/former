@@ -1,6 +1,6 @@
 import type { LucideIcon } from "lucide-react";
 
-export { };
+export {};
 
 declare global {
   type FieldType =
@@ -24,6 +24,7 @@ declare global {
     | "switch"
     | "divider"
     | "spacer"
+    | "file"
     | "datetime-local";
 
   interface FieldOption {
@@ -51,22 +52,20 @@ declare global {
     id: string;
     title: string;
     description?: string;
-    version: string;
+    version: number;
   }
 
   interface FormBuilderState {
     meta: FormMeta;
     fields: Field[];
 
-    // // UI state
     selectedFieldId: string | null;
     isDirty: boolean;
 
-    // // History for undo/redo
-    // history: Field[][]
-    // historyIndex: number 
+    history: Field[][];
+    historyIndex: number;
+    updateHistory: () => void;
 
-    // // Actions
     addField: (type: FieldType, category?: FieldCategory) => void;
     updateField: (id: string, data: Partial<Field>) => void;
     deleteField: (id: string) => void;
@@ -79,12 +78,11 @@ declare global {
       optionId: string,
       data: Partial<FieldOption>,
     ) => void;
-    deleteOption: (fieldId: string, optionId: string) => void
+    deleteOption: (fieldId: string, optionId: string) => void;
 
-    // undo: () => void
-    // redo: () => void
+    undo: () => void;
+    redo: () => void;
 
-    // resetForm: () => void
     setMeta: (meta: Partial<FormMeta>) => void;
   }
 

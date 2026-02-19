@@ -8,17 +8,37 @@ const initialMeta: FormMeta = {
   id: nanoid(),
   title: "Untitled Form",
   description: "Write your description here",
-  version: "1",
+  version: 1,
 };
 
+const MAX_HISTORY = 30;
+
 export const useBuilderStore = create<FormBuilderState>()(
-  immer((set) => ({
+  immer((set, get) => ({
     meta: initialMeta,
     fields: [],
     selectedFieldId: null,
     isDirty: false,
-    // history: [],
-    // historyIndex: -1,
+    history: [],
+    historyIndex: -1,
+
+    updateHistory: () => {
+      const { fields, history, historyIndex } = get();
+      const snapshot = structuredClone(fields);
+
+      set((state) => {
+        if (historyIndex < history.length - 1) {
+          state.history = state.history.slice(0, historyIndex + 1);
+        }
+        state.history.push(snapshot);
+        if (state.history.length > MAX_HISTORY) {
+          state.history.shift();
+          state.historyIndex--;
+        } else {
+          state.historyIndex++;
+        }
+      });
+    },
 
     addField: (type) => {
       const ftype = `${type.substring(0, 1).toUpperCase()}${type.substring(1)}`;
@@ -50,13 +70,20 @@ export const useBuilderStore = create<FormBuilderState>()(
             label: `New ${ftype} Field`,
             required: false,
             helperText: "",
-            options: [],
+            options: [
+              {
+                id: nanoid(),
+                label: "Option 1",
+                value: "option-1",
+              },
+            ],
             config: handleFields(type),
           };
           state.fields.push(field);
           state.isDirty = true;
         }
       });
+      get().updateHistory();
     },
 
     updateField: (id, data) => {
@@ -66,6 +93,7 @@ export const useBuilderStore = create<FormBuilderState>()(
         Object.assign(field, data);
         state.isDirty = true;
       });
+      get().updateHistory();
     },
 
     deleteField: (id) => {
@@ -73,6 +101,7 @@ export const useBuilderStore = create<FormBuilderState>()(
         state.fields = state.fields.filter((f) => f.id !== id);
         state.isDirty = true;
       });
+      get().updateHistory();
     },
 
     // reorderFields: (from, to) => {
@@ -106,6 +135,7 @@ export const useBuilderStore = create<FormBuilderState>()(
 
         state.isDirty = true;
       });
+      get().updateHistory();
     },
 
     updateOption: (fieldId, optionId, data) => {
@@ -116,7 +146,7 @@ export const useBuilderStore = create<FormBuilderState>()(
         if (opt) Object.assign(opt, data);
         state.isDirty = true;
       });
-      // ; (get() as any)._pushHistory()
+      get().updateHistory();
     },
 
     deleteOption: (fieldId, optionId) => {
@@ -129,25 +159,30 @@ export const useBuilderStore = create<FormBuilderState>()(
 
         state.isDirty = true;
       });
+      get().updateHistory();
     },
 
-    // undo: () => {
-    //     const { historyIndex, history } = get()
-    //     if (historyIndex <= 0) return
-    //     set((state) => {
-    //         state.historyIndex--
-    //         state.fields = JSON.parse(JSON.stringify(history[state.historyIndex]))
-    //     })
-    // },
+    undo: () => {
+      const { historyIndex, history } = get();
+      if (historyIndex <= 0) return;
 
-    // redo: () => {
-    //     const { historyIndex, history } = get()
-    //     if (historyIndex >= history.length - 1) return
-    //     set((state) => {
-    //         state.historyIndex++
-    //         state.fields = JSON.parse(JSON.stringify(history[state.historyIndex]))
-    //     })
-    // },
+      set((state) => {
+        state.historyIndex--;
+        state.fields = structuredClone(history[state.historyIndex]);
+        state.isDirty = true;
+      });
+    },
+
+    redo: () => {
+      const { historyIndex, history } = get();
+      if (historyIndex >= history.length - 1) return;
+
+      set((state) => {
+        state.historyIndex++;
+        state.fields = structuredClone(history[state.historyIndex]);
+        state.isDirty = true;
+      });
+    },
 
     // resetForm: () => {
     //     set((state) => {

@@ -19,7 +19,6 @@ import {
   Radio,
   ToggleLeft,
   Upload,
-  Image,
   Heading,
   AlignLeft,
   Minus,
@@ -234,16 +233,6 @@ export const FIELD_SCHEMA: FieldSchema[] = [
     description: "File upload input with size and type limits",
     defaultProps: { accept: "*", maxSizeMB: 5 },
   },
-  {
-    _id: crypto.randomUUID(),
-    type: "image-upload",
-    label: "Image Upload",
-    category: "files",
-    icon: Image,
-    description: "Image file upload input",
-    defaultProps: { accept: "image/*" },
-  },
-
   {
     _id: crypto.randomUUID(),
     type: "heading",

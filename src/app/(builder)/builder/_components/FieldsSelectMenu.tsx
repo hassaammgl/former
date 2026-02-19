@@ -1,5 +1,5 @@
 "use client";
-
+// TODO: Add fuctionaity of Preview and
 import {
   Sidebar,
   SidebarFooter,
@@ -23,7 +23,7 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 import Header from "./header";
-import React from "react";
+import React, { memo } from "react";
 import { ScrollArea } from "@/components/ui/scroll-area";
 
 const FieldsSelectMenu = ({ children }: { children: React.ReactNode }) => {
@@ -48,7 +48,7 @@ interface GroupsI {
   fieldsType: string;
 }
 
-const Group = ({ fieldsType }: GroupsI) => {
+const Group = memo(function Group({ fieldsType }: GroupsI) {
   const { addField } = useBuilderStore();
   return (
     <SidebarGroup>
@@ -82,7 +82,7 @@ const Group = ({ fieldsType }: GroupsI) => {
       </SidebarMenu>
     </SidebarGroup>
   );
-};
+});
 
 const SidebarComponent = () => {
   const { meta, setMeta } = useBuilderStore();
