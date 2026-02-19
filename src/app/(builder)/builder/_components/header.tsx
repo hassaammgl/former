@@ -31,14 +31,13 @@ const Header = () => {
   const { meta, setMeta, isDirty, history, undo, redo, historyIndex, status } =
     useBuilderStore();
   const [isSaving, setIsSaving] = useState(false);
-  const handleSave =async () => {
+  const handleSave = async () => {
+    // TODO: Handle Save Functionality
     setIsSaving(true);
     try {
-      await axios.post("/api/save",{
-        
-      })
+      await axios.post("/api/save", {});
     } catch (error) {
-      
+      console.log(error);
     }
   };
 
