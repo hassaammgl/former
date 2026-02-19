@@ -58,6 +58,7 @@ declare global {
   interface FormBuilderState {
     meta: FormMeta;
     fields: Field[];
+    status: "draft" | "published";
 
     selectedFieldId: string | null;
     isDirty: boolean;

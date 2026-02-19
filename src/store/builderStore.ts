@@ -17,6 +17,7 @@ export const useBuilderStore = create<FormBuilderState>()(
   immer((set, get) => ({
     meta: initialMeta,
     fields: [],
+    status: "draft",
     selectedFieldId: null,
     isDirty: false,
     history: [],

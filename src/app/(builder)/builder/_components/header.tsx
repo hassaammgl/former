@@ -24,13 +24,24 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { useBuilderStore } from "@/store/builderStore";
-
-const status = "published";
+import { useState } from "react";
+import axios from "axios";
 
 const Header = () => {
-  const { meta, setMeta, isDirty, history, undo, redo, historyIndex } =
+  const { meta, setMeta, isDirty, history, undo, redo, historyIndex, status } =
     useBuilderStore();
-  console.log(history);
+  const [isSaving, setIsSaving] = useState(false);
+  const handleSave =async () => {
+    setIsSaving(true);
+    try {
+      await axios.post("/api/save",{
+        
+      })
+    } catch (error) {
+      
+    }
+  };
+
   return (
     <header className="flex h-14 items-center justify-between border-b border-border px-4 bg-background shrink-0 ">
       <div className="flex items-center gap-4">
@@ -87,12 +98,11 @@ const Header = () => {
         <Button
           variant="outline"
           size="sm"
-          //  onClick={handleSave} disabled={isSaving}
-          disabled={!isDirty}
+          onClick={handleSave}
+          disabled={isSaving || !isDirty}
         >
           <Save className="h-4 w-4 mr-2" />
-          {/* {isSaving ? 'Saving...' : 'Save'} */}
-          Save
+          {isSaving ? "Saving..." : "Save"}
         </Button>
 
         {/* Publish/Unpublish */}

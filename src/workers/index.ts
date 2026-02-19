@@ -1,4 +1,5 @@
 import { Worker } from "bullmq";
+import { redis } from "@/constants/redis";
 
 const worker = new Worker(
   "email-queue",
@@ -7,11 +8,7 @@ const worker = new Worker(
     setTimeout(() => {}, 5000);
   },
   {
-    connection: {
-      port: Number(process.env.REDIS_PORT!),
-      host: "127.0.0.1",
-      maxRetriesPerRequest: null,
-    },
+    connection: redis,
   },
 );
 
