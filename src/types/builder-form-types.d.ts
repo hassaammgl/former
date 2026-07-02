@@ -32,10 +32,12 @@ declare global {
     label: string;
     value: string;
   }
+  
   interface FieldConfigs {
     label: string;
     value: string | number | boolean;
   }
+
   interface Field {
     id: string;
     type: FieldType;
@@ -62,11 +64,10 @@ declare global {
 
     selectedFieldId: string | null;
     isDirty: boolean;
-
+    setIsDirty: () => void;
     history: Field[][];
     historyIndex: number;
     updateHistory: () => void;
-
     addField: (type: FieldType, category?: FieldCategory) => void;
     updateField: (id: string, data: Partial<Field>) => void;
     deleteField: (id: string) => void;

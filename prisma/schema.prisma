@@ -3,22 +3,23 @@ generator client {
   output   = "../src/generated/prisma"
 }
 
-datasource db { 
+datasource db {
   provider = "postgresql"
 }
 
 model User {
-  id            String    @id
-  name          String
-  email         String
-  emailVerified Boolean   @default(false)
-  image         String?
-  createdAt     DateTime  @default(now())
-  updatedAt     DateTime  @updatedAt
-  sessions      Session[]
-  accounts      Account[]
-  profile       Profile?
-  forms         Form[]
+  id             String          @id
+  name           String
+  email          String
+  emailVerified  Boolean         @default(false)
+  image          String?
+  createdAt      DateTime        @default(now())
+  updatedAt      DateTime        @updatedAt
+  sessions       Session[]
+  accounts       Account[]
+  profile        Profile?
+  forms          Form[]
+  backgroundJobs BackgroundJob[]
 
   @@unique([email])
   @@map("user")
@@ -152,4 +153,37 @@ model FormAnswer {
 
   @@index([submissionId])
   @@index([fieldName])
+}
+
+enum JobStatus {
+  PENDING
+  PROCESSING
+  COMPLETED
+  FAILED
+}
+
+model BackgroundJob {
+  id    String @id @default(cuid())
+  queue String
+  jobId String @unique
+  type  String
+
+  userId String?
+  user   User?   @relation(fields: [userId], references: [id], onDelete: SetNull)
+
+  status JobStatus @default(PENDING)
+
+  payload Json    @db.JsonB
+  result  Json?   @db.JsonB
+  error   String?
+
+  attempts Int @default(0)
+
+  createdAt  DateTime  @default(now())
+  startedAt  DateTime?
+  finishedAt DateTime?
+
+  @@index([queue])
+  @@index([status])
+  @@index([userId])
 }

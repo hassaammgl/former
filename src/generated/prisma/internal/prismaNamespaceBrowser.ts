@@ -60,7 +60,8 @@ export const ModelName = {
   FormVersion: 'FormVersion',
   FormField: 'FormField',
   FormSubmission: 'FormSubmission',
-  FormAnswer: 'FormAnswer'
+  FormAnswer: 'FormAnswer',
+  BackgroundJob: 'BackgroundJob'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -212,6 +213,25 @@ export const FormAnswerScalarFieldEnum = {
 export type FormAnswerScalarFieldEnum = (typeof FormAnswerScalarFieldEnum)[keyof typeof FormAnswerScalarFieldEnum]
 
 
+export const BackgroundJobScalarFieldEnum = {
+  id: 'id',
+  queue: 'queue',
+  jobId: 'jobId',
+  type: 'type',
+  userId: 'userId',
+  status: 'status',
+  payload: 'payload',
+  result: 'result',
+  error: 'error',
+  attempts: 'attempts',
+  createdAt: 'createdAt',
+  startedAt: 'startedAt',
+  finishedAt: 'finishedAt'
+} as const
+
+export type BackgroundJobScalarFieldEnum = (typeof BackgroundJobScalarFieldEnum)[keyof typeof BackgroundJobScalarFieldEnum]
+
+
 export const SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -225,6 +245,14 @@ export const JsonNullValueInput = {
 } as const
 
 export type JsonNullValueInput = (typeof JsonNullValueInput)[keyof typeof JsonNullValueInput]
+
+
+export const NullableJsonNullValueInput = {
+  DbNull: DbNull,
+  JsonNull: JsonNull
+} as const
+
+export type NullableJsonNullValueInput = (typeof NullableJsonNullValueInput)[keyof typeof NullableJsonNullValueInput]
 
 
 export const QueryMode = {

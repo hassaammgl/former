@@ -67,3 +67,8 @@ export type FormSubmission = Prisma.FormSubmissionModel
  * 
  */
 export type FormAnswer = Prisma.FormAnswerModel
+/**
+ * Model BackgroundJob
+ * 
+ */
+export type BackgroundJob = Prisma.BackgroundJobModel

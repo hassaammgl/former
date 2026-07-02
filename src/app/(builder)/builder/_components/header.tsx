@@ -28,6 +28,8 @@ import { useState } from "react";
 import axios from "axios";
 import { useSession } from "@/services/better-auth/auth-client";
 import { useRouter } from "next/navigation";
+import { toast } from "sonner";
+
 const Header = () => {
   const router = useRouter();
   const {
@@ -42,6 +44,36 @@ const Header = () => {
     fields,
   } = useBuilderStore();
 
+  async function poll(jobId: string) {
+    try {
+      const { data } = await axios.get(`/api/jobs/${jobId}`);
+
+      if (data.status === "COMPLETED") {
+        toast.success("Form saved successfully.");
+        setIsSaving(false);
+        return;
+      }
+
+      if (data.status === "FAILED") {
+        toast.error(data.error ?? "Failed to save form.");
+        setIsSaving(false);
+        return;
+      }
+
+      setTimeout(() => poll(jobId), 2000);
+    } catch (error) {
+      console.error(error);
+
+      if (axios.isAxiosError(error)) {
+        toast.error(error.response?.data?.message ?? "Request failed.");
+      } else {
+        toast.error("Something went wrong.");
+      }
+
+      setIsSaving(false);
+    }
+  }
+
   const { data: sessionData, error: sessionError } = useSession();
   if (sessionError) {
     router.push("/sign-in");
@@ -49,18 +81,44 @@ const Header = () => {
   const [isSaving, setIsSaving] = useState(false);
   const handleSave = async () => {
     setIsSaving(true);
-    console.log(sessionData);
     try {
-      const data:ISaveForm = {
+      const data: ISaveForm = {
         userId: sessionData?.user.id as string,
         meta,
         fields: fields,
       };
-      await axios.post("/api/save", { ...data }).then((res) => {
-        console.log("test", res);
-      });
+      try {
+        const { data: response } = await axios.post("/api/save", {
+          ...data,
+        });
+
+        const { status, message, bgJobId } = response;
+
+        if (!status) {
+          throw new Error(message ?? "Failed to save form");
+        }
+
+        console.log("Job created:", bgJobId);
+        poll(bgJobId);
+      } catch (error) {
+        if (axios.isAxiosError(error)) {
+          console.error("Axios Error:", error.response?.data ?? error.message);
+
+          toast.error(error.response?.data?.message ?? "Request failed");
+        } else if (error instanceof Error) {
+          console.error(error.message);
+
+          toast.error(error.message);
+        } else {
+          console.error("Unknown error occurred");
+
+          toast.error("Something went wrong");
+        }
+      }
     } catch (error) {
       console.log(error);
+      // toast.error(error?.message as string);
+      setIsSaving(false);
     }
   };
 
@@ -88,7 +146,6 @@ const Header = () => {
           </Badge>
         </div>
       </div>
-      <div></div>
       <div className="flex items-center gap-2">
         {/* Undo/Redo */}
         <div className="flex items-center border-r border-border pr-2 mr-2">

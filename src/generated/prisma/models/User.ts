@@ -202,6 +202,7 @@ export type UserWhereInput = {
   accounts?: Prisma.AccountListRelationFilter
   profile?: Prisma.XOR<Prisma.ProfileNullableScalarRelationFilter, Prisma.ProfileWhereInput> | null
   forms?: Prisma.FormListRelationFilter
+  backgroundJobs?: Prisma.BackgroundJobListRelationFilter
 }
 
 export type UserOrderByWithRelationInput = {
@@ -216,6 +217,7 @@ export type UserOrderByWithRelationInput = {
   accounts?: Prisma.AccountOrderByRelationAggregateInput
   profile?: Prisma.ProfileOrderByWithRelationInput
   forms?: Prisma.FormOrderByRelationAggregateInput
+  backgroundJobs?: Prisma.BackgroundJobOrderByRelationAggregateInput
 }
 
 export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -233,6 +235,7 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   accounts?: Prisma.AccountListRelationFilter
   profile?: Prisma.XOR<Prisma.ProfileNullableScalarRelationFilter, Prisma.ProfileWhereInput> | null
   forms?: Prisma.FormListRelationFilter
+  backgroundJobs?: Prisma.BackgroundJobListRelationFilter
 }, "id" | "email">
 
 export type UserOrderByWithAggregationInput = {
@@ -273,6 +276,7 @@ export type UserCreateInput = {
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   profile?: Prisma.ProfileCreateNestedOneWithoutUserInput
   forms?: Prisma.FormCreateNestedManyWithoutUserInput
+  backgroundJobs?: Prisma.BackgroundJobCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateInput = {
@@ -287,6 +291,7 @@ export type UserUncheckedCreateInput = {
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   profile?: Prisma.ProfileUncheckedCreateNestedOneWithoutUserInput
   forms?: Prisma.FormUncheckedCreateNestedManyWithoutUserInput
+  backgroundJobs?: Prisma.BackgroundJobUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserUpdateInput = {
@@ -301,6 +306,7 @@ export type UserUpdateInput = {
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   profile?: Prisma.ProfileUpdateOneWithoutUserNestedInput
   forms?: Prisma.FormUpdateManyWithoutUserNestedInput
+  backgroundJobs?: Prisma.BackgroundJobUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateInput = {
@@ -315,6 +321,7 @@ export type UserUncheckedUpdateInput = {
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   profile?: Prisma.ProfileUncheckedUpdateOneWithoutUserNestedInput
   forms?: Prisma.FormUncheckedUpdateManyWithoutUserNestedInput
+  backgroundJobs?: Prisma.BackgroundJobUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateManyInput = {
@@ -380,6 +387,11 @@ export type UserMinOrderByAggregateInput = {
 export type UserScalarRelationFilter = {
   is?: Prisma.UserWhereInput
   isNot?: Prisma.UserWhereInput
+}
+
+export type UserNullableScalarRelationFilter = {
+  is?: Prisma.UserWhereInput | null
+  isNot?: Prisma.UserWhereInput | null
 }
 
 export type StringFieldUpdateOperationsInput = {
@@ -454,6 +466,22 @@ export type UserUpdateOneRequiredWithoutFormsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutFormsInput, Prisma.UserUpdateWithoutFormsInput>, Prisma.UserUncheckedUpdateWithoutFormsInput>
 }
 
+export type UserCreateNestedOneWithoutBackgroundJobsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutBackgroundJobsInput, Prisma.UserUncheckedCreateWithoutBackgroundJobsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutBackgroundJobsInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneWithoutBackgroundJobsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutBackgroundJobsInput, Prisma.UserUncheckedCreateWithoutBackgroundJobsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutBackgroundJobsInput
+  upsert?: Prisma.UserUpsertWithoutBackgroundJobsInput
+  disconnect?: Prisma.UserWhereInput | boolean
+  delete?: Prisma.UserWhereInput | boolean
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutBackgroundJobsInput, Prisma.UserUpdateWithoutBackgroundJobsInput>, Prisma.UserUncheckedUpdateWithoutBackgroundJobsInput>
+}
+
 export type UserCreateWithoutSessionsInput = {
   id: string
   name: string
@@ -465,6 +493,7 @@ export type UserCreateWithoutSessionsInput = {
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   profile?: Prisma.ProfileCreateNestedOneWithoutUserInput
   forms?: Prisma.FormCreateNestedManyWithoutUserInput
+  backgroundJobs?: Prisma.BackgroundJobCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutSessionsInput = {
@@ -478,6 +507,7 @@ export type UserUncheckedCreateWithoutSessionsInput = {
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   profile?: Prisma.ProfileUncheckedCreateNestedOneWithoutUserInput
   forms?: Prisma.FormUncheckedCreateNestedManyWithoutUserInput
+  backgroundJobs?: Prisma.BackgroundJobUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutSessionsInput = {
@@ -507,6 +537,7 @@ export type UserUpdateWithoutSessionsInput = {
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   profile?: Prisma.ProfileUpdateOneWithoutUserNestedInput
   forms?: Prisma.FormUpdateManyWithoutUserNestedInput
+  backgroundJobs?: Prisma.BackgroundJobUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutSessionsInput = {
@@ -520,6 +551,7 @@ export type UserUncheckedUpdateWithoutSessionsInput = {
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   profile?: Prisma.ProfileUncheckedUpdateOneWithoutUserNestedInput
   forms?: Prisma.FormUncheckedUpdateManyWithoutUserNestedInput
+  backgroundJobs?: Prisma.BackgroundJobUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutAccountsInput = {
@@ -533,6 +565,7 @@ export type UserCreateWithoutAccountsInput = {
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   profile?: Prisma.ProfileCreateNestedOneWithoutUserInput
   forms?: Prisma.FormCreateNestedManyWithoutUserInput
+  backgroundJobs?: Prisma.BackgroundJobCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutAccountsInput = {
@@ -546,6 +579,7 @@ export type UserUncheckedCreateWithoutAccountsInput = {
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   profile?: Prisma.ProfileUncheckedCreateNestedOneWithoutUserInput
   forms?: Prisma.FormUncheckedCreateNestedManyWithoutUserInput
+  backgroundJobs?: Prisma.BackgroundJobUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutAccountsInput = {
@@ -575,6 +609,7 @@ export type UserUpdateWithoutAccountsInput = {
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   profile?: Prisma.ProfileUpdateOneWithoutUserNestedInput
   forms?: Prisma.FormUpdateManyWithoutUserNestedInput
+  backgroundJobs?: Prisma.BackgroundJobUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutAccountsInput = {
@@ -588,6 +623,7 @@ export type UserUncheckedUpdateWithoutAccountsInput = {
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   profile?: Prisma.ProfileUncheckedUpdateOneWithoutUserNestedInput
   forms?: Prisma.FormUncheckedUpdateManyWithoutUserNestedInput
+  backgroundJobs?: Prisma.BackgroundJobUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutProfileInput = {
@@ -601,6 +637,7 @@ export type UserCreateWithoutProfileInput = {
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   forms?: Prisma.FormCreateNestedManyWithoutUserInput
+  backgroundJobs?: Prisma.BackgroundJobCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutProfileInput = {
@@ -614,6 +651,7 @@ export type UserUncheckedCreateWithoutProfileInput = {
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   forms?: Prisma.FormUncheckedCreateNestedManyWithoutUserInput
+  backgroundJobs?: Prisma.BackgroundJobUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutProfileInput = {
@@ -643,6 +681,7 @@ export type UserUpdateWithoutProfileInput = {
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   forms?: Prisma.FormUpdateManyWithoutUserNestedInput
+  backgroundJobs?: Prisma.BackgroundJobUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutProfileInput = {
@@ -656,6 +695,7 @@ export type UserUncheckedUpdateWithoutProfileInput = {
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   forms?: Prisma.FormUncheckedUpdateManyWithoutUserNestedInput
+  backgroundJobs?: Prisma.BackgroundJobUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutFormsInput = {
@@ -669,6 +709,7 @@ export type UserCreateWithoutFormsInput = {
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   profile?: Prisma.ProfileCreateNestedOneWithoutUserInput
+  backgroundJobs?: Prisma.BackgroundJobCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutFormsInput = {
@@ -682,6 +723,7 @@ export type UserUncheckedCreateWithoutFormsInput = {
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   profile?: Prisma.ProfileUncheckedCreateNestedOneWithoutUserInput
+  backgroundJobs?: Prisma.BackgroundJobUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutFormsInput = {
@@ -711,6 +753,7 @@ export type UserUpdateWithoutFormsInput = {
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   profile?: Prisma.ProfileUpdateOneWithoutUserNestedInput
+  backgroundJobs?: Prisma.BackgroundJobUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutFormsInput = {
@@ -724,6 +767,79 @@ export type UserUncheckedUpdateWithoutFormsInput = {
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   profile?: Prisma.ProfileUncheckedUpdateOneWithoutUserNestedInput
+  backgroundJobs?: Prisma.BackgroundJobUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type UserCreateWithoutBackgroundJobsInput = {
+  id: string
+  name: string
+  email: string
+  emailVerified?: boolean
+  image?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
+  profile?: Prisma.ProfileCreateNestedOneWithoutUserInput
+  forms?: Prisma.FormCreateNestedManyWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutBackgroundJobsInput = {
+  id: string
+  name: string
+  email: string
+  emailVerified?: boolean
+  image?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
+  profile?: Prisma.ProfileUncheckedCreateNestedOneWithoutUserInput
+  forms?: Prisma.FormUncheckedCreateNestedManyWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutBackgroundJobsInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutBackgroundJobsInput, Prisma.UserUncheckedCreateWithoutBackgroundJobsInput>
+}
+
+export type UserUpsertWithoutBackgroundJobsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutBackgroundJobsInput, Prisma.UserUncheckedUpdateWithoutBackgroundJobsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutBackgroundJobsInput, Prisma.UserUncheckedCreateWithoutBackgroundJobsInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutBackgroundJobsInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutBackgroundJobsInput, Prisma.UserUncheckedUpdateWithoutBackgroundJobsInput>
+}
+
+export type UserUpdateWithoutBackgroundJobsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
+  profile?: Prisma.ProfileUpdateOneWithoutUserNestedInput
+  forms?: Prisma.FormUpdateManyWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutBackgroundJobsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
+  profile?: Prisma.ProfileUncheckedUpdateOneWithoutUserNestedInput
+  forms?: Prisma.FormUncheckedUpdateManyWithoutUserNestedInput
 }
 
 
@@ -735,12 +851,14 @@ export type UserCountOutputType = {
   sessions: number
   accounts: number
   forms: number
+  backgroundJobs: number
 }
 
 export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   sessions?: boolean | UserCountOutputTypeCountSessionsArgs
   accounts?: boolean | UserCountOutputTypeCountAccountsArgs
   forms?: boolean | UserCountOutputTypeCountFormsArgs
+  backgroundJobs?: boolean | UserCountOutputTypeCountBackgroundJobsArgs
 }
 
 /**
@@ -774,6 +892,13 @@ export type UserCountOutputTypeCountFormsArgs<ExtArgs extends runtime.Types.Exte
   where?: Prisma.FormWhereInput
 }
 
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountBackgroundJobsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.BackgroundJobWhereInput
+}
+
 
 export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -787,6 +912,7 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   accounts?: boolean | Prisma.User$accountsArgs<ExtArgs>
   profile?: boolean | Prisma.User$profileArgs<ExtArgs>
   forms?: boolean | Prisma.User$formsArgs<ExtArgs>
+  backgroundJobs?: boolean | Prisma.User$backgroundJobsArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["user"]>
 
@@ -826,6 +952,7 @@ export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   accounts?: boolean | Prisma.User$accountsArgs<ExtArgs>
   profile?: boolean | Prisma.User$profileArgs<ExtArgs>
   forms?: boolean | Prisma.User$formsArgs<ExtArgs>
+  backgroundJobs?: boolean | Prisma.User$backgroundJobsArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type UserIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
@@ -838,6 +965,7 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     accounts: Prisma.$AccountPayload<ExtArgs>[]
     profile: Prisma.$ProfilePayload<ExtArgs> | null
     forms: Prisma.$FormPayload<ExtArgs>[]
+    backgroundJobs: Prisma.$BackgroundJobPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -1245,6 +1373,7 @@ export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Typ
   accounts<T extends Prisma.User$accountsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$accountsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AccountPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   profile<T extends Prisma.User$profileArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$profileArgs<ExtArgs>>): Prisma.Prisma__ProfileClient<runtime.Types.Result.GetResult<Prisma.$ProfilePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   forms<T extends Prisma.User$formsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$formsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$FormPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  backgroundJobs<T extends Prisma.User$backgroundJobsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$backgroundJobsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$BackgroundJobPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1757,6 +1886,30 @@ export type User$formsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs
   take?: number
   skip?: number
   distinct?: Prisma.FormScalarFieldEnum | Prisma.FormScalarFieldEnum[]
+}
+
+/**
+ * User.backgroundJobs
+ */
+export type User$backgroundJobsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the BackgroundJob
+   */
+  select?: Prisma.BackgroundJobSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the BackgroundJob
+   */
+  omit?: Prisma.BackgroundJobOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.BackgroundJobInclude<ExtArgs> | null
+  where?: Prisma.BackgroundJobWhereInput
+  orderBy?: Prisma.BackgroundJobOrderByWithRelationInput | Prisma.BackgroundJobOrderByWithRelationInput[]
+  cursor?: Prisma.BackgroundJobWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.BackgroundJobScalarFieldEnum | Prisma.BackgroundJobScalarFieldEnum[]
 }
 
 /**
