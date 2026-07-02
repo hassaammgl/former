@@ -106,4 +106,10 @@ declare global {
     category: FieldCategory;
     defaultProps: Record<string, unknown>;
   };
+
+  interface ISaveForm {
+    meta: FormMeta;
+    userId: string;
+    fields: Field[];
+  }
 }

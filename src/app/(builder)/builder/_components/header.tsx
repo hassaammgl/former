@@ -26,16 +26,39 @@ import {
 import { useBuilderStore } from "@/store/builderStore";
 import { useState } from "react";
 import axios from "axios";
-
+import { useSession } from "@/services/better-auth/auth-client";
+import { useRouter } from "next/navigation";
 const Header = () => {
-  const { meta, setMeta, isDirty, history, undo, redo, historyIndex, status } =
-    useBuilderStore();
+  const router = useRouter();
+  const {
+    meta,
+    setMeta,
+    isDirty,
+    history,
+    undo,
+    redo,
+    historyIndex,
+    status,
+    fields,
+  } = useBuilderStore();
+
+  const { data: sessionData, error: sessionError } = useSession();
+  if (sessionError) {
+    router.push("/sign-in");
+  }
   const [isSaving, setIsSaving] = useState(false);
   const handleSave = async () => {
-    // TODO: Handle Save Functionality
     setIsSaving(true);
+    console.log(sessionData);
     try {
-      await axios.post("/api/save", {});
+      const data:ISaveForm = {
+        userId: sessionData?.user.id as string,
+        meta,
+        fields: fields,
+      };
+      await axios.post("/api/save", { ...data }).then((res) => {
+        console.log("test", res);
+      });
     } catch (error) {
       console.log(error);
     }
