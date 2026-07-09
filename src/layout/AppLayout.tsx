@@ -86,7 +86,7 @@ export const AppLayout = ({ children }: { children?: React.ReactNode }) => {
       {/* Main Content Area */}
       <main className="flex-1 flex flex-col overflow-scroll">
         <TopBar />
-        <div className="mx-auto w-full">{children}</div>
+        <div className="mx-auto w-full p-4">{children}</div>
       </main>
     </div>
   );

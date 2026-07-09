@@ -113,4 +113,27 @@ declare global {
     userId: string;
     fields: Field[];
   }
+
+  interface Form {
+    id: string;
+    ownerId: string;
+    name: string;
+    description: string;
+    createdAt: string;
+    updatedAt: string;
+    submissionsCount: number;
+    isPublic: boolean;
+    isArchived: boolean;
+    versions: [];
+    submissions: [];
+    user: {
+      id: string;
+      name: string;
+      email: string;
+      emailVerified: boolean;
+      image: null | string;
+      createdAt: string;
+      updatedAt: string;
+    };
+  }
 }
